@@ -23,14 +23,14 @@ run {
 }
 
 group = "com.proximyst.fieldmod"
-version = "0.2.0"
+version = "0.2.1"
 
 dependencies {
     implementation(project(":java-9-impl"))
 }
 
 configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_5
     targetCompatibility = sourceCompatibility
 }
 

@@ -47,7 +47,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'com.proximyst.fieldmod:fieldmod:0.2.0'
+  implementation 'com.proximyst.fieldmod:fieldmod:0.2.1'
 }
 ----
 
@@ -63,6 +63,6 @@ repositories {
 }
 
 dependencies {
-  implementation("com.proximyst.fieldmod:fieldmod:0.2.0")
+  implementation("com.proximyst.fieldmod:fieldmod:0.2.1")
 }
 ----
