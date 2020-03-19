@@ -23,7 +23,7 @@ run {
 }
 
 group = "com.proximyst.fieldmod"
-version = "0.1.0"
+version = "0.2.0"
 
 dependencies {
     implementation(project(":java-9-impl"))
