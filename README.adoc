@@ -8,10 +8,9 @@ and the old variant away into the same interface.
 
 == Interface
 
-The interface is an `enum` with a static method called `#getCurrent` to get the
-current Java version represented as a `FieldMod` variant.
+The utility is accessed through a non-instantiable class called `FieldMod`.
 
-The enumeration variants have three methods:
+The utility class has four static methods:
 
   - `#setup()` - Sets up the required fields for the Java version this variant
 represents. This only performs setup upon the first call; all subsequent calls
@@ -48,7 +47,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'com.proximyst.fieldmod:fieldmod:0.1.0'
+  implementation 'com.proximyst.fieldmod:fieldmod:0.2.0'
 }
 ----
 
@@ -64,6 +63,6 @@ repositories {
 }
 
 dependencies {
-  implementation("com.proximyst.fieldmod:fieldmod:0.1.0")
+  implementation("com.proximyst.fieldmod:fieldmod:0.2.0")
 }
 ----
