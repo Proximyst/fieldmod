@@ -22,7 +22,7 @@ run {
     }
 }
 
-group = "com.proximyst.tuples"
+group = "com.proximyst.fieldmod"
 version = "0.1.0"
 
 dependencies {
