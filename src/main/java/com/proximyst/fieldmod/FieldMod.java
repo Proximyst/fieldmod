@@ -99,4 +99,23 @@ public enum FieldMod {
    */
   public abstract void setModifiers(Field field, int modifiers)
       throws IllegalAccessException, NoSuchFieldException;
+
+  /**
+   * Sets the modifiers of a field using the current Java version's preferred approach.
+   * <p>
+   * This is merely a no exceptions thrown version of {@link #setModifiers}. This does not print the stack trace upon
+   * catching exceptions, but rather returns a boolean of whether it was successful.
+   *
+   * @param field     The field to modify the `modifiers` field of.
+   * @param modifiers The new `modifiers` field. This must be calculated by the caller and is in no way verified.
+   * @return Whether the call was successful.
+   */
+  public boolean setModifiersNoThrow(Field field, int modifiers) {
+    try {
+      setModifiers(field, modifiers);
+      return field.getModifiers() == modifiers;
+    } catch (IllegalAccessException | NoSuchFieldException ignored) {
+      return false;
+    }
+  }
 }
