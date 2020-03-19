@@ -1,0 +1,69 @@
+= fieldmod
+
+Utility to modify the `modifiers` field on `Field` for several Java versions.
+
+Java 12 removed the ability to use the good ol' `Field#getDeclaredField` on
+`modifiers`, requiring code special to support the version. This abstracts that
+and the old variant away into the same interface.
+
+== Interface
+
+The interface is an `enum` with a static method called `#getCurrent` to get the
+current Java version represented as a `FieldMod` variant.
+
+The enumeration variants have three methods:
+
+  - `#setup()` - Sets up the required fields for the Java version this variant
+represents. This only performs setup upon the first call; all subsequent calls
+are no-ops.
+  - `#setModifiers(Field, int)` - Sets the modifiers of a field using the
+current Java version's preferred approach. The exceptions are generally fine to
+ignore as they're unlikely to be thrown. If wanted to be checked, one can adapt
+behaviour by first calling `#setup`. The exceptions thrown by this method are
+simply from that very method and may thus be called ahead of this as a single
+call to `#setup` makes all subsequent ones no-ops.
+  - `#setModifiersNoThrow(Field, int)` - Sets the modifiers of a field using
+the current Java version's preferred approach. This is merely a no exceptions
+thrown version of `#setModifiers`. This does not print the stack trace upon
+catching exceptions, but rather returns a boolean of whether it was successful.
+  - `#setModifiersSneaky(Field, int)` - Sets the modifiers of a field using the
+current Java version's preferred approach. This is merely a sneaky throws
+version of `#setModifiers`.
+
+== Usage
+
+How to include the utility in projects.
+
+Maven users will have to figure out how to do it themselves.
+
+=== Gradle (Groovy)
+
+[source,groovy]
+----
+repositories {
+  maven {
+    name = 'proxi-nexus'
+    url = 'https://nexus.proximyst.com/repository/maven-public/'
+  }
+}
+
+dependencies {
+  implementation 'com.proximyst.fieldmod:fieldmod:0.1.0'
+}
+----
+
+=== Gradle (Kotlin)
+
+[source,kotlin]
+----
+repositories {
+  maven {
+    name = "proxi-nexus"
+    url = uri("https://nexus.proximyst.com/repository/maven-public/")
+  }
+}
+
+dependencies {
+  implementation("com.proximyst.fieldmod:fieldmod:0.1.0")
+}
+----
