@@ -118,4 +118,22 @@ public enum FieldMod {
       return false;
     }
   }
+
+  /**
+   * Sets the modifiers of a field using the current Java version's preferred approach.
+   * <p>
+   * This is merely a sneaky throws version of {@link #setModifiers}.
+   *
+   * @param field     The field to modify the `modifiers` field of.
+   * @param modifiers The new `modifiers` field. This must be calculated by the caller and is in no way verified.
+   * @throws RuntimeException Exception wrapped with either {@link IllegalAccessException} or {@link
+   *                          NoSuchFieldException}.
+   */
+  public void setModifiersSneaky(Field field, int modifiers) {
+    try {
+      setModifiers(field, modifiers);
+    } catch (IllegalAccessException | NoSuchFieldException exception) {
+      throw new RuntimeException(exception);
+    }
+  }
 }
