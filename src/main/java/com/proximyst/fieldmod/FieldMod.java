@@ -32,9 +32,10 @@ public class FieldMod {
 
       implementation = new FieldModImplementationJava9();
     } catch (ClassNotFoundException ignored) {
-      // The JVM is Java 5-8
+      // The current is Java 8 or below.
+      // As the class cannot be loaded on Java 7 and below, it is already asserted to be Java 8.
 
-      implementation = new FieldModImplementationJava5();
+      implementation = new FieldModImplementationJava8();
     }
 
     return implementation;
@@ -86,9 +87,7 @@ public class FieldMod {
     try {
       setModifiers(field, modifiers);
       return field.getModifiers() == modifiers;
-    } catch (IllegalAccessException ignored) {
-      return false;
-    } catch (NoSuchFieldException ignored) {
+    } catch (IllegalAccessException | NoSuchFieldException ignored) {
       return false;
     }
   }
@@ -106,9 +105,7 @@ public class FieldMod {
   public static void setModifiersSneaky(Field field, int modifiers) {
     try {
       setModifiers(field, modifiers);
-    } catch (IllegalAccessException exception) {
-      throw new RuntimeException(exception);
-    } catch (NoSuchFieldException exception) {
+    } catch (IllegalAccessException | NoSuchFieldException exception) {
       throw new RuntimeException(exception);
     }
   }
@@ -143,21 +140,25 @@ public class FieldMod {
         throws IllegalAccessException, NoSuchFieldException;
   }
 
-  private static class FieldModImplementationJava5 implements FieldModImplementation {
+  private static class FieldModImplementationJava8 implements FieldModImplementation {
+    @Override
     public void setup() throws NoSuchFieldException {
-      Java5Implementation.INSTANCE.setup();
+      Java8Implementation.INSTANCE.setup();
     }
 
+    @Override
     public void setModifiers(Field field, int modifiers) throws IllegalAccessException, NoSuchFieldException {
-      Java5Implementation.INSTANCE.setModifiers(field, modifiers);
+      Java8Implementation.INSTANCE.setModifiers(field, modifiers);
     }
   }
 
   private static class FieldModImplementationJava9 implements FieldModImplementation {
+    @Override
     public void setup() throws IllegalAccessException, NoSuchFieldException {
       Java9Implementation.INSTANCE.setup();
     }
 
+    @Override
     public void setModifiers(Field field, int modifiers) throws IllegalAccessException, NoSuchFieldException {
       // This is not strictly necessary on Java 9, but it is on Java 12+.
       // The implementation requires Java 9 features.

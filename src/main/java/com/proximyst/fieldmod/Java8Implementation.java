@@ -2,7 +2,7 @@ package com.proximyst.fieldmod;
 
 import java.lang.reflect.Field;
 
-enum Java5Implementation {
+enum Java8Implementation {
   INSTANCE;
 
   private static final Object lock = new Object();
